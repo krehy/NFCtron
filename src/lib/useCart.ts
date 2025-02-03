@@ -10,6 +10,7 @@ interface CartState {
   cart: Seat[];
   addToCart: (seat: Seat) => void;
   removeFromCart: (seatId: string) => void;
+  clearCart: () => void; // Přidáváme funkci pro vymazání košíku
 }
 
 export const useCart = create<CartState>((set) => ({
@@ -17,4 +18,5 @@ export const useCart = create<CartState>((set) => ({
   addToCart: (seat) => set((state) => ({ cart: [...state.cart, seat] })),
   removeFromCart: (seatId) =>
     set((state) => ({ cart: state.cart.filter((seat) => seat.seatId !== seatId) })),
+  clearCart: () => set({ cart: [] }), // Implementace vyprázdnění košíku
 }));

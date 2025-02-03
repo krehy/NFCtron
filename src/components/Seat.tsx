@@ -10,9 +10,10 @@ interface SeatProps extends React.HTMLAttributes<HTMLElement> {
     place: number;
     ticketTypeId: string;
   };
+  rowNumber: number;
 }
 
-export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(({ seat, className }, ref) => {
+export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(({ seat, rowNumber, className }, ref) => {
   const { cart, addToCart, removeFromCart } = useCart();
   const isInCart = cart.some((item) => item.seatId === seat.seatId);
 
@@ -21,17 +22,17 @@ export const Seat = React.forwardRef<HTMLDivElement, SeatProps>(({ seat, classNa
       <PopoverTrigger>
         <div
           className={cn(
-            "size-8 rounded-full transition-colors flex items-center justify-center font-semibold",
-            isInCart ? "bg-green-500 text-white" : "bg-zinc-400 hover:bg-zinc-200",
+            "w-10 h-10 border border-gray-300 flex items-center justify-center font-semibold",
+            isInCart ? "bg-green-500 text-white" : "bg-gray-500 hover:bg-gray-200",
             className
           )}
           ref={ref}
         >
-          {seat.place}
+          {rowNumber}-{seat.place}
         </div>
       </PopoverTrigger>
-      <PopoverContent className="p-4 w-56 shadow-lg rounded-lg border border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-800">Sedadlo {seat.place}</h3>
+      <PopoverContent className="p-3 w-48 shadow-md rounded-md border border-gray-200">
+        <h3 className="text-lg font-semibold text-gray-800">Řada {rowNumber}, Sedadlo {seat.place}</h3>
         <p className="text-sm text-gray-500">ID: {seat.seatId}</p>
         <p className="text-sm text-gray-500">Typ vstupenky: {seat.ticketTypeId}</p>
 
