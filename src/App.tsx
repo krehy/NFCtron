@@ -28,7 +28,7 @@ function App() {
     <>
       <div className="flex flex-col grow">
  {/* Header */}
-      <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center p-4 md:p-6">
+ <nav className="sticky top-0 left-0 right-0 bg-white border-b border-zinc-200 flex justify-center p-4 md:p-6">
         <div className="max-w-screen-lg w-full flex items-center justify-between gap-3">
           <div className="max-w-[150px] md:max-w-[250px] w-full flex">
             <div className="bg-zinc-100 rounded-md size-12" />
@@ -55,43 +55,27 @@ function App() {
           </div>
         </div>
       </nav>
-        {/* Main content */}
-        <main className="grow flex flex-col justify-center">
-          <div className="max-w-screen-lg m-auto p-4 flex items-start grow gap-3 w-full">
-            {/* Seating map */}
-            <div className="bg-white rounded-md grow p-3 self-stretch shadow-sm flex flex-col gap-2">
-              {/* Stav načítání sedadel */}
-              {seatsLoading && <p>🔄 Načítám sedadla...</p>}
-              {seatsError && <p className="text-red-500">❌ Chyba: {seatsError}</p>}
-              
-              {/* Zobrazení sedadel správně podle řad */}
-              {seatData &&
-                seatData.seatRows.map((row, rowIndex) => (
-                  <div key={row.seatRow} className="flex justify-center gap-1">
-                    {row.seats.map((seat, seatIndex) => (
-                      <Seat key={seat.seatId} seat={{ ...seat, place: seatIndex + 1 }} rowNumber={rowIndex + 1} />
-                    ))}
-                  </div>
-                ))}
-            </div>
-
-            {/* Event info */}
-            <aside className="w-full max-w-sm bg-white rounded-md shadow-sm p-3 flex flex-col gap-2">
-              {eventLoading && <p>🔄 Načítám informace o akci...</p>}
-              {eventError && <p className="text-red-500">❌ Chyba: {eventError}</p>}
-              {event && (
-                <>
-                  <img
-                    src={event.headerImageUrl}
-                    alt={event.namePub}
-                    className="w-full h-32 object-cover rounded-md"
-                  />
-                  <h1 className="text-xl text-zinc-900 font-semibold">{event.namePub}</h1>
-                  <p className="text-sm text-zinc-500">{event.description}</p>
-                  <p className="text-sm text-zinc-500">📍 {event.place}</p>
-                  <p className="text-sm text-zinc-500">
-                    📅 {new Date(event.dateFrom).toLocaleDateString()} - {new Date(event.dateTo).toLocaleDateString()}
-                  </p>
+	  
+	    {/* Main content */}
+		<main className="grow flex flex-col justify-center">
+  <div className="max-w-screen-lg m-auto p-4 flex flex-col md:flex-row-reverse items-start grow gap-3 w-full">
+    {/* Event info (na mobilu nahoře, na PC vpravo) */}
+    <aside className="w-full md:max-w-sm bg-white rounded-md shadow-sm p-3 flex flex-col gap-2">
+      {eventLoading && <p>🔄 Načítám informace o akci...</p>}
+      {eventError && <p className="text-red-500">❌ Chyba: {eventError}</p>}
+      {event && (
+        <>
+          <img
+            src={event.headerImageUrl}
+            alt={event.namePub}
+            className="w-full h-32 object-cover rounded-md"
+          />
+          <h1 className="text-xl text-zinc-900 font-semibold">{event.namePub}</h1>
+          <p className="text-sm text-zinc-500">{event.description}</p>
+          <p className="text-sm text-zinc-500">📍 {event.place}</p>
+          <p className="text-sm text-zinc-500">
+            📅 {new Date(event.dateFrom).toLocaleDateString()} - {new Date(event.dateTo).toLocaleDateString()}
+          </p>
           {/* Tlačítko pro přidání do kalendáře */}
           <Button
             variant="secondary"
@@ -106,12 +90,26 @@ function App() {
           >
             📅 Přidat do kalendáře
           </Button>
-                </>
-              )}
-            </aside>
-          </div>
-        </main>
+        </>
+      )}
+    </aside>
 
+    {/* Seating map (na mobilu pod event info, na PC vlevo) */}
+    <div className="bg-white rounded-md grow p-3 self-stretch shadow-sm flex flex-col gap-2">
+      {seatsLoading && <p>🔄 Načítám sedadla...</p>}
+      {seatsError && <p className="text-red-500">❌ Chyba: {seatsError}</p>}
+
+      {seatData &&
+        seatData.seatRows.map((row, rowIndex) => (
+          <div key={row.seatRow} className="flex justify-center gap-1">
+            {row.seats.map((seat, seatIndex) => (
+              <Seat key={seat.seatId} seat={{ ...seat, place: seatIndex + 1 }} rowNumber={rowIndex + 1} />
+            ))}
+          </div>
+        ))}
+    </div>
+  </div>
+</main>
         {/* Cart footer */}
         <nav className="sticky bottom-0 left-0 right-0 bg-white border-t border-zinc-200 flex justify-center">
           <div className="max-w-screen-lg p-6 flex justify-between items-center gap-4 grow">
