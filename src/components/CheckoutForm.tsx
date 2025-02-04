@@ -4,7 +4,7 @@ import { useEvent } from "@/lib/useEvent";
 import { useAuth } from "@/lib/useAuth";
 import { Button } from "@/components/ui/button";
 
-export default function CheckoutForm({ closeModal, openLogin }: { closeModal: () => void; openLogin: () => void }) {
+export default function CheckoutForm({ openLogin }: { closeModal: () => void; openLogin: () => void }) {
   const { event } = useEvent();
   const { user } = useAuth(); // Získáme přihlášeného uživatele
   const { placeOrder, loading, error, orderId } = useCheckout();
