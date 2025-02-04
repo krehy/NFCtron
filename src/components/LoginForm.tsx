@@ -49,9 +49,6 @@ export default function LoginForm({ closeModal }: { closeModal: () => void }) {
           {loading ? "Přihlašování..." : "Přihlásit se"}
         </Button>
       </form>
-      <Button variant="ghost" className="mt-4" onClick={closeModal}>
-        Zrušit
-      </Button>
     </div>
   );
 }
