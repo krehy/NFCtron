@@ -83,10 +83,6 @@ export default function CheckoutForm({ closeModal, openLogin }: { closeModal: ()
           )}
         </>
       )}
-
-      <Button variant="ghost" className="mt-4" onClick={closeModal}>
-        Zrušit
-      </Button>
     </div>
   );
 }
