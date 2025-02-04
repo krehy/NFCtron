@@ -26,7 +26,7 @@ export default function LoginForm({ closeModal }: { closeModal: () => void }) {
 
   return (
     <div className="p-6 bg-white rounded-md max-w-md mx-auto">
-      <h2 className="text-xl font-semibold mb-4">Přihlášení</h2>
+      <h2 className="text-xl font-semibold mb-4 text-black">Přihlášení</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input

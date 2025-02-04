@@ -111,19 +111,29 @@ function App() {
     </aside>
 
     {/* Seating map (na mobilu pod event info, na PC vlevo) */}
-    <div className="bg-white rounded-md grow p-3 self-stretch shadow-sm flex flex-col gap-2">
-      {seatsLoading && <p>🔄 Načítám sedadla...</p>}
-      {seatsError && <p className="text-red-500">❌ Chyba: {seatsError}</p>}
+    <div className="bg-white rounded-md grow p-3 self-stretch shadow-sm flex flex-col gap-2 overflow-x-auto">
+  {seatsLoading && <p>🔄 Načítám sedadla...</p>}
+  {seatsError && <p className="text-red-500">❌ Chyba: {seatsError}</p>}
 
-      {seatData &&
-        seatData.seatRows.map((row, rowIndex) => (
-          <div key={row.seatRow} className="flex justify-center gap-1">
-            {row.seats.map((seat, seatIndex) => (
-              <Seat key={seat.seatId} seat={{ ...seat, place: seatIndex + 1 }} rowNumber={rowIndex + 1} />
-            ))}
-          </div>
-        ))}
-    </div>
+  <div className="flex flex-col items-center gap-2 w-full">
+    {seatData &&
+      seatData.seatRows.map((row, rowIndex) => (
+        <div
+          key={row.seatRow}
+          className="flex justify-center gap-1 flex-wrap md:flex-nowrap w-full max-w-full"
+        >
+          {row.seats.map((seat, seatIndex) => (
+            <Seat
+              key={seat.seatId}
+              seat={{ ...seat, place: seatIndex + 1 }}
+              rowNumber={rowIndex + 1}
+            />
+          ))}
+        </div>
+      ))}
+  </div>
+</div>
+
   </div>
 </main>
 
